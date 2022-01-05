@@ -41,13 +41,13 @@ jobs:
         with:
           generator: go
           openapi-file: openapi/gmocoin-api.yaml
-          command-args: -o gmo-go-client --additional-properties --package-name gmo-go-client
-      - name: Commit go-client files
+          command-args: -o gmoclient --additional-properties=packageName=gmoclient
+      - name: Commit gmoclient files
         run: |
           git config --local user.email "y16ra@users.noreply.github.com"
           git config --local user.name "y16ra"
-          git add gmo-go-client
-          git commit -m "Update gmo-go-client" -a
+          git add gmoclient
+          git commit -m "Update gmoclient" -a
           git pull
           git push
 
