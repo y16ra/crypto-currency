@@ -16,7 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  deploy:
+  generate:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -36,17 +36,18 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: swagger-ui
-      - name: Generate client library
+      - name: Generate client library for GMO Coin
         uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: go
           openapi-file: openapi/gmocoin-api.yaml
+          command-args: gmo-go-client
       - name: Commit go-client files
         run: |
           git config --local user.email "y16ra@users.noreply.github.com"
           git config --local user.name "y16ra"
-          git add go-client
-          git commit -m "Update go-client" -a
+          git add gmo-go-client
+          git commit -m "Update gmo-go-client" -a
           git pull
           git push
 
