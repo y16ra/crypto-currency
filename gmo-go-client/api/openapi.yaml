@@ -1,0 +1,302 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: dev@tricoro.tech
+    name: tricoro
+    url: https://tricoro.tech/
+  title: GMO Coin APIs
+  version: 1.0.0
+servers:
+- url: https://api.coin.z.com
+tags:
+- description: Public APIs
+  name: public
+- description: Private APIs
+  name: private
+paths:
+  /public/v1/status:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+          description: OK
+      summary: Get an exchange status
+      tags:
+      - public
+  /public/v1/ticker:
+    get:
+      parameters:
+      - explode: true
+        in: query
+        name: symbol
+        required: false
+        schema:
+          $ref: '#/components/schemas/Symbols'
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tickers'
+          description: OK
+      summary: Get latest rate
+      tags:
+      - public
+  /public/v1/orderbooks:
+    get:
+      parameters:
+      - explode: true
+        in: query
+        name: symbol
+        required: true
+        schema:
+          $ref: '#/components/schemas/Symbols'
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Orderbooks'
+          description: OK
+      summary: Get orderbooks
+      tags:
+      - public
+  /private/v1/account/margin:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountMargin'
+          description: OK
+      security:
+      - ApiKey: []
+        ApiTimestamp: []
+        ApiSign: []
+      summary: Get account margin
+      tags:
+      - private
+components:
+  schemas:
+    StatusCode:
+      description: 0 Nomal end
+      type: integer
+    Symbols:
+      description: Crypted currency symbols
+      enum:
+      - BTC
+      - ETH
+      - BCH
+      - LTC
+      - XRP
+      - XEM
+      - XLM
+      - XYM
+      type: string
+    Status:
+      example:
+        data: '{}'
+        responsetime: 2000-01-23T04:56:07.000+00:00
+        status: 0
+      properties:
+        status:
+          description: 0 Nomal end
+          type: integer
+        data:
+          properties:
+            status:
+              enum:
+              - OPEN
+              - MAINTENANCE
+              - PREOPEN
+              type: string
+        responsetime:
+          format: date-time
+          type: string
+      type: object
+    Tickers:
+      example:
+        data:
+        - volume: 7.061401241503109
+          symbol: symbol
+          high: 5
+          last: 5
+          low: 2
+          ask: 6
+          bid: 1
+          timestamp: 2000-01-23T04:56:07.000+00:00
+        - volume: 7.061401241503109
+          symbol: symbol
+          high: 5
+          last: 5
+          low: 2
+          ask: 6
+          bid: 1
+          timestamp: 2000-01-23T04:56:07.000+00:00
+        responsetime: 2000-01-23T04:56:07.000+00:00
+        status: 0
+      properties:
+        status:
+          description: 0 Nomal end
+          type: integer
+        data:
+          items:
+            $ref: '#/components/schemas/Tickers_data'
+          type: array
+        responsetime:
+          format: date-time
+          type: string
+      type: object
+    Orderbooks:
+      example:
+        data:
+          symbol: symbol
+          asks:
+          - size: 1
+            price: 6
+          - size: 1
+            price: 6
+          bids:
+          - size: 1
+            price: 6
+          - size: 1
+            price: 6
+        responsetime: 2000-01-23T04:56:07.000+00:00
+        status: 0
+      properties:
+        status:
+          description: 0 Nomal end
+          type: integer
+        data:
+          $ref: '#/components/schemas/Orderbooks_data'
+        responsetime:
+          format: date-time
+          type: string
+      type: object
+    AccountMargin:
+      example:
+        data:
+          margin: margin
+          availableAmount: availableAmount
+          marginRatio: marginRatio
+          marginCallStatus: marginCallStatus
+          profitLoss: profitLoss
+          actualProfitLoss: actualProfitLoss
+        responsetime: 2000-01-23T04:56:07.000+00:00
+        status: 0
+      properties:
+        status:
+          description: 0 Nomal end
+          type: integer
+        data:
+          $ref: '#/components/schemas/AccountMargin_data'
+        responsetime:
+          format: date-time
+          type: string
+      type: object
+    Tickers_data:
+      example:
+        volume: 7.061401241503109
+        symbol: symbol
+        high: 5
+        last: 5
+        low: 2
+        ask: 6
+        bid: 1
+        timestamp: 2000-01-23T04:56:07.000+00:00
+      properties:
+        ask:
+          type: integer
+        bid:
+          type: integer
+        high:
+          type: integer
+        last:
+          type: integer
+        low:
+          type: integer
+        symbol:
+          $ref: '#/components/schemas/Symbols'
+        timestamp:
+          format: date-time
+          type: string
+        volume:
+          format: double
+          type: number
+      type: object
+    Orderbooks_data_asks:
+      example:
+        size: 1
+        price: 6
+      properties:
+        price:
+          type: integer
+        size:
+          type: integer
+      type: object
+    Orderbooks_data:
+      example:
+        symbol: symbol
+        asks:
+        - size: 1
+          price: 6
+        - size: 1
+          price: 6
+        bids:
+        - size: 1
+          price: 6
+        - size: 1
+          price: 6
+      properties:
+        asks:
+          items:
+            $ref: '#/components/schemas/Orderbooks_data_asks'
+          type: array
+        bids:
+          items:
+            $ref: '#/components/schemas/Orderbooks_data_asks'
+          type: array
+        symbol:
+          $ref: '#/components/schemas/Symbols'
+      type: object
+    AccountMargin_data:
+      example:
+        margin: margin
+        availableAmount: availableAmount
+        marginRatio: marginRatio
+        marginCallStatus: marginCallStatus
+        profitLoss: profitLoss
+        actualProfitLoss: actualProfitLoss
+      properties:
+        actualProfitLoss:
+          type: string
+        availableAmount:
+          type: string
+        margin:
+          type: string
+        marginCallStatus:
+          type: string
+        marginRatio:
+          type: string
+        profitLoss:
+          type: string
+      type: object
+  securitySchemes:
+    ApiKey:
+      in: header
+      name: API-KEY
+      type: apiKey
+    ApiTimestamp:
+      in: header
+      name: API-TIMESTAMP
+      type: apiKey
+    ApiSign:
+      in: header
+      name: API-SIGN
+      type: apiKey
