@@ -47,5 +47,6 @@ jobs:
           git config --local user.name "y16ra"
           git add go-client
           git commit -m "Update go-client" -a
+          git pull
           git push
 
