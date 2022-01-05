@@ -41,7 +41,7 @@ jobs:
         with:
           generator: go
           openapi-file: openapi/gmocoin-api.yaml
-          command-args: gmo-go-client
+          command-args: -o gmo-go-client
       - name: Commit go-client files
         run: |
           git config --local user.email "y16ra@users.noreply.github.com"
