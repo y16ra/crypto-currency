@@ -17,15 +17,15 @@ type GmoConfigList struct {
 var GmoConfig GmoConfigList
 
 func init() {
-	cfg, err := ini.Load("config.ini")
+	cfg, err := ini.Load("config/config.ini")
 	if err != nil {
 		log.Printf("Failed to read file: %v", err)
 		os.Exit(1)
 	}
 
 	GmoConfig = GmoConfigList{
-		ApiKey:    cfg.Section("gmo").Key("api_key").String(),
-		ApiSecret: cfg.Section("gmo").Key("api_secret").String(),
-		BaseURL:   cfg.Section("gmo").Key("base_url").String(),
+		ApiKey:    cfg.Section("gmo-coin").Key("api_key").String(),
+		ApiSecret: cfg.Section("gmo-coin").Key("api_secret").String(),
+		BaseURL:   cfg.Section("gmo-coin").Key("api_baseurl").String(),
 	}
 }
