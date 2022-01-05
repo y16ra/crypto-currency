@@ -59,6 +59,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Orderbooks'
+  /private/v1/account/margin:
+    get:
+      summary: Get account margin
+      tags: [ 'private' ]
+      security:
+        - ApiKey: []
+          ApiTimestamp: []
+          ApiSign: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountMargin'
         
 components:
   schemas:
@@ -157,3 +172,39 @@ components:
         responsetime:
           type: string
           format: date-time
+    AccountMargin:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/StatusCode'
+        data:
+          type: object
+          properties:
+            actualProfitLoss:
+              type: string
+            availableAmount:
+              type: string
+            margin:
+              type: string
+            marginCallStatus:
+              type: string
+            marginRatio:
+              type: string
+            profitLoss:
+              type: string
+        responsetime:
+          type: string
+          format: date-time
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      in: header
+      name: API-KEY
+    ApiTimestamp:
+      type: apiKey
+      in: header
+      name: API-TIMESTAMP
+    ApiSign:
+      type: apiKey
+      in: header
+      name: API-SIGN
