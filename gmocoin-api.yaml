@@ -1,0 +1,110 @@
+openapi: 3.0.0
+info:
+  title: "GMO Coin APIs"
+  version: "1.0.0"
+  contact:
+    name: tricoro
+    email: dev@tricoro.tech
+    url: https://tricoro.tech/
+servers:
+  - url: https://api.coin.z.com
+tags:
+  - name: public
+    description: Public APIs
+  - name: private
+    description: Private APIs
+paths:
+  /public/v1/status:
+    get:
+      summary: Get an exchange status
+      tags: [ 'public' ]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /public/v1/ticker:
+    get:
+      summary: Get latest rate
+      tags: [ 'public' ]
+      parameters:
+        - in: query
+          name: symbol
+          schema:
+            $ref: '#/components/schemas/Symbols'
+          required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tickers'
+        
+components:
+  schemas:
+    StatusCode:
+      type: integer
+      description: 0 Nomal end
+    Symbols:
+      type: string
+      description: Crypted currency symbols
+      enum:
+        - BTC
+        - ETH
+        - BCH
+        - LTC
+        - XRP
+        - XEM
+        - XLM
+        - XYM
+    Status:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/StatusCode'
+        data:
+          properties:
+            status:
+              type: string
+              enum: 
+                - OPEN
+                - MAINTENANCE
+                - PREOPEN
+        responsetime:
+          type: string
+          format: date-time
+    Tickers:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/StatusCode'
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              ask:
+                type: integer
+              bid:
+                type: integer
+              high:
+                type: integer
+              last:
+                type: integer
+              low:
+                type: integer
+              symbol:
+                type: string
+                $ref: '#/components/schemas/Symbols'
+              timestamp:
+                type: string
+                format: date-time
+              volume:
+                type: number
+                format: double
+        responsetime:
+          type: string
+          format: date-time
