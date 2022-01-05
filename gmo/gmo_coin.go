@@ -58,13 +58,14 @@ func (c GmoCoin) Request(method string, path string, param string, public bool) 
 		log.Printf("url=%s", url)
 		req, _ = http.NewRequest(method, url, nil)
 	}
+	// set header params
 	timestamp := createTimestamp()
 	message := timestamp + method + path + param
 	sign := computeHmac256(message, c.secretKey)
 	req.Header.Set("API-KEY", c.accessKey)
 	req.Header.Set("API-TIMESTAMP", timestamp)
 	req.Header.Set("API-SIGN", sign)
-
+	// Call GMO Coin API
 	client := &http.Client{}
 	res, err := client.Do(req)
 	fmt.Printf("status code= %d \n", res.StatusCode)
