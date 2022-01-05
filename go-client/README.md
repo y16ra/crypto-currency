@@ -79,6 +79,7 @@ All URIs are relative to *https://api.coin.z.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*PrivateApi* | [**PrivateV1AccountMarginGet**](docs/PrivateApi.md#privatev1accountmarginget) | **Get** /private/v1/account/margin | Get account margin
 *PublicApi* | [**PublicV1OrderbooksGet**](docs/PublicApi.md#publicv1orderbooksget) | **Get** /public/v1/orderbooks | Get orderbooks
 *PublicApi* | [**PublicV1StatusGet**](docs/PublicApi.md#publicv1statusget) | **Get** /public/v1/status | Get an exchange status
 *PublicApi* | [**PublicV1TickerGet**](docs/PublicApi.md#publicv1tickerget) | **Get** /public/v1/ticker | Get latest rate
@@ -86,6 +87,8 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [AccountMargin](docs/AccountMargin.md)
+ - [AccountMarginData](docs/AccountMarginData.md)
  - [Orderbooks](docs/Orderbooks.md)
  - [OrderbooksData](docs/OrderbooksData.md)
  - [OrderbooksDataAsks](docs/OrderbooksDataAsks.md)
@@ -97,7 +100,33 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Authorization
 
- Endpoints do not require authorization.
+
+
+### ApiKey
+
+- **Type**: API key
+- **API key parameter name**: API-KEY
+- **Location**: HTTP header
+
+Note, each API key must be added to a map of `map[string]APIKey` where the key is: API-KEY and passed in as the auth context for each request.
+
+
+### ApiSign
+
+- **Type**: API key
+- **API key parameter name**: API-SIGN
+- **Location**: HTTP header
+
+Note, each API key must be added to a map of `map[string]APIKey` where the key is: API-SIGN and passed in as the auth context for each request.
+
+
+### ApiTimestamp
+
+- **Type**: API key
+- **API key parameter name**: API-TIMESTAMP
+- **Location**: HTTP header
+
+Note, each API key must be added to a map of `map[string]APIKey` where the key is: API-TIMESTAMP and passed in as the auth context for each request.
 
 
 ## Documentation for Utility Methods

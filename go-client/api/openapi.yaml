@@ -66,6 +66,22 @@ paths:
       summary: Get orderbooks
       tags:
       - public
+  /private/v1/account/margin:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountMargin'
+          description: OK
+      security:
+      - ApiKey: []
+        ApiTimestamp: []
+        ApiSign: []
+      summary: Get account margin
+      tags:
+      - private
 components:
   schemas:
     StatusCode:
@@ -163,6 +179,27 @@ components:
           format: date-time
           type: string
       type: object
+    AccountMargin:
+      example:
+        data:
+          margin: margin
+          availableAmount: availableAmount
+          marginRatio: marginRatio
+          marginCallStatus: marginCallStatus
+          profitLoss: profitLoss
+          actualProfitLoss: actualProfitLoss
+        responsetime: 2000-01-23T04:56:07.000+00:00
+        status: 0
+      properties:
+        status:
+          description: 0 Nomal end
+          type: integer
+        data:
+          $ref: '#/components/schemas/AccountMargin_data'
+        responsetime:
+          format: date-time
+          type: string
+      type: object
     Tickers_data:
       example:
         volume: 7.061401241503109
@@ -228,3 +265,38 @@ components:
         symbol:
           $ref: '#/components/schemas/Symbols'
       type: object
+    AccountMargin_data:
+      example:
+        margin: margin
+        availableAmount: availableAmount
+        marginRatio: marginRatio
+        marginCallStatus: marginCallStatus
+        profitLoss: profitLoss
+        actualProfitLoss: actualProfitLoss
+      properties:
+        actualProfitLoss:
+          type: string
+        availableAmount:
+          type: string
+        margin:
+          type: string
+        marginCallStatus:
+          type: string
+        marginRatio:
+          type: string
+        profitLoss:
+          type: string
+      type: object
+  securitySchemes:
+    ApiKey:
+      in: header
+      name: API-KEY
+      type: apiKey
+    ApiTimestamp:
+      in: header
+      name: API-TIMESTAMP
+      type: apiKey
+    ApiSign:
+      in: header
+      name: API-SIGN
+      type: apiKey

@@ -1,14 +1,17 @@
 .gitignore
-.openapi-generator-ignore
 .travis.yml
 README.md
 api/openapi.yaml
+api_private.go
 api_public.go
 client.go
 configuration.go
+docs/AccountMargin.md
+docs/AccountMarginData.md
 docs/Orderbooks.md
 docs/OrderbooksData.md
 docs/OrderbooksDataAsks.md
+docs/PrivateApi.md
 docs/PublicApi.md
 docs/Status.md
 docs/Symbols.md
@@ -17,6 +20,8 @@ docs/TickersData.md
 git_push.sh
 go.mod
 go.sum
+model_account_margin.go
+model_account_margin_data.go
 model_orderbooks.go
 model_orderbooks_data.go
 model_orderbooks_data_asks.go

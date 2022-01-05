@@ -50,6 +50,8 @@ type APIClient struct {
 
 	// API Services
 
+	PrivateApi *PrivateApiService
+
 	PublicApi *PublicApiService
 }
 
@@ -69,6 +71,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
+	c.PrivateApi = (*PrivateApiService)(&c.common)
 	c.PublicApi = (*PublicApiService)(&c.common)
 
 	return c
