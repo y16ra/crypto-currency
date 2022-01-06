@@ -59,6 +59,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Orderbooks'
+  /public/v1/trades:
+    get:
+      summary: Get trade histories
+      tags: [ 'public' ]
+      parameters:
+        - in: query
+          name: symbol
+          schema:
+            $ref: '#/components/schemas/Symbols'
+          required: true
+        - in: query
+          name: page
+          description: page number. (default 1)
+          schema:
+            type: integer
+          required: false
+        - in: query
+          name: count
+          description: Max count per request. (default 100)
+          schema:
+            type: integer
+          required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trades'
   /private/v1/account/margin:
     get:
       summary: Get account margin
@@ -195,6 +224,39 @@ components:
         responsetime:
           type: string
           format: date-time
+    Trades:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/StatusCode'
+        data:
+          type: object
+          properties:
+            pagination:
+              type: object
+              properties:
+                currentPage:
+                  type: integer
+                count:
+                  type: integer
+            list:
+              type: array
+              items:
+                type: object
+                properties:
+                  price:
+                    type: integer
+                  side:
+                    type: string
+                  size:
+                    type: string
+                  timestamp:
+                    type: string
+                    format: date-time
+        responsetime:
+          type: string
+          format: date-time
+
   securitySchemes:
     ApiKey:
       type: apiKey
