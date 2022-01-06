@@ -66,6 +66,42 @@ paths:
       summary: Get orderbooks
       tags:
       - public
+  /public/v1/trades:
+    get:
+      parameters:
+      - explode: true
+        in: query
+        name: symbol
+        required: true
+        schema:
+          $ref: '#/components/schemas/Symbols'
+        style: form
+      - description: page number. (default 1)
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Max count per request. (default 100)
+        explode: true
+        in: query
+        name: count
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trades'
+          description: OK
+      summary: Get trade histories
+      tags:
+      - public
   /private/v1/account/margin:
     get:
       responses:
@@ -200,6 +236,33 @@ components:
           format: date-time
           type: string
       type: object
+    Trades:
+      example:
+        data:
+          pagination:
+            count: 1
+            currentPage: 6
+          list:
+          - side: side
+            size: size
+            price: 5
+            timestamp: 2000-01-23T04:56:07.000+00:00
+          - side: side
+            size: size
+            price: 5
+            timestamp: 2000-01-23T04:56:07.000+00:00
+        responsetime: 2000-01-23T04:56:07.000+00:00
+        status: 0
+      properties:
+        status:
+          description: 0 Nomal end
+          type: integer
+        data:
+          $ref: '#/components/schemas/Trades_data'
+        responsetime:
+          format: date-time
+          type: string
+      type: object
     Tickers_data:
       example:
         volume: 7.061401241503109
@@ -286,6 +349,55 @@ components:
           type: string
         profitLoss:
           type: string
+      type: object
+    Trades_data_pagination:
+      example:
+        count: 1
+        currentPage: 6
+      properties:
+        currentPage:
+          type: integer
+        count:
+          type: integer
+      type: object
+    Trades_data_list:
+      example:
+        side: side
+        size: size
+        price: 5
+        timestamp: 2000-01-23T04:56:07.000+00:00
+      properties:
+        price:
+          type: integer
+        side:
+          type: string
+        size:
+          type: string
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    Trades_data:
+      example:
+        pagination:
+          count: 1
+          currentPage: 6
+        list:
+        - side: side
+          size: size
+          price: 5
+          timestamp: 2000-01-23T04:56:07.000+00:00
+        - side: side
+          size: size
+          price: 5
+          timestamp: 2000-01-23T04:56:07.000+00:00
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Trades_data_pagination'
+        list:
+          items:
+            $ref: '#/components/schemas/Trades_data_list'
+          type: array
       type: object
   securitySchemes:
     ApiKey:

@@ -83,6 +83,7 @@ Class | Method | HTTP request | Description
 *PublicApi* | [**PublicV1OrderbooksGet**](docs/PublicApi.md#publicv1orderbooksget) | **Get** /public/v1/orderbooks | Get orderbooks
 *PublicApi* | [**PublicV1StatusGet**](docs/PublicApi.md#publicv1statusget) | **Get** /public/v1/status | Get an exchange status
 *PublicApi* | [**PublicV1TickerGet**](docs/PublicApi.md#publicv1tickerget) | **Get** /public/v1/ticker | Get latest rate
+*PublicApi* | [**PublicV1TradesGet**](docs/PublicApi.md#publicv1tradesget) | **Get** /public/v1/trades | Get trade histories
 
 
 ## Documentation For Models
@@ -96,6 +97,10 @@ Class | Method | HTTP request | Description
  - [Symbols](docs/Symbols.md)
  - [Tickers](docs/Tickers.md)
  - [TickersData](docs/TickersData.md)
+ - [Trades](docs/Trades.md)
+ - [TradesData](docs/TradesData.md)
+ - [TradesDataList](docs/TradesDataList.md)
+ - [TradesDataPagination](docs/TradesDataPagination.md)
 
 
 ## Documentation For Authorization

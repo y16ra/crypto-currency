@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 .travis.yml
 README.md
 api/openapi.yaml
@@ -18,6 +17,10 @@ docs/Status.md
 docs/Symbols.md
 docs/Tickers.md
 docs/TickersData.md
+docs/Trades.md
+docs/TradesData.md
+docs/TradesDataList.md
+docs/TradesDataPagination.md
 git_push.sh
 go.mod
 go.sum
@@ -30,5 +33,9 @@ model_status.go
 model_symbols.go
 model_tickers.go
 model_tickers_data.go
+model_trades.go
+model_trades_data.go
+model_trades_data_list.go
+model_trades_data_pagination.go
 response.go
 utils.go
