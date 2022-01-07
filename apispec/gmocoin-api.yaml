@@ -103,6 +103,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccountMargin'
+  /private/v1/account/assets:
+    get:
+      summary: Get account assets
+      tags: [ 'private' ]
+      security:
+        - ApiKey: []
+          ApiTimestamp: []
+          ApiSign: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Assets'
         
 components:
   schemas:
@@ -256,7 +271,28 @@ components:
         responsetime:
           type: string
           format: date-time
-
+    Assets:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/StatusCode'
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              amount:
+                type: string
+              available:
+                type: string
+              conversionRate:
+                type: string
+              symbol:
+                type: string
+                $ref: '#/components/schemas/Symbols'
+        responsetime:
+          type: string
+          format: date-time
   securitySchemes:
     ApiKey:
       type: apiKey
