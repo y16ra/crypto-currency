@@ -118,7 +118,65 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Assets'
-        
+  /private/v1/order:
+    post:
+      summary: Order
+      tags: [ 'private' ]
+      security:
+        - ApiKey: []
+          ApiTimestamp: []
+          ApiSign: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                symbol:
+                  type: string
+                  $ref: '#/components/schemas/Symbols'
+                side:
+                  type: string
+                  enum:
+                    - BUY
+                    - SELL
+                executionType:
+                  type: string
+                  enum:
+                    - MARKET
+                    - LIMIT
+                    - STOP
+                timeInForce:
+                  type: string
+                  enum:
+                    - FAK
+                    - FOK
+                price:
+                  type: string
+                losscutPrice:
+                  type: string
+                size:
+                  type: string
+                cancelBefore:
+                  type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/StatusCode'
+                  data:
+                    description: orderid
+                    type: string
+                  responsetime:
+                    type: string
+                    format: date-time
+                  
 components:
   schemas:
     StatusCode:
