@@ -8,6 +8,10 @@ client.go
 configuration.go
 docs/AccountMargin.md
 docs/AccountMarginData.md
+docs/Assets.md
+docs/AssetsData.md
+docs/InlineObject.md
+docs/InlineResponse200.md
 docs/Orderbooks.md
 docs/OrderbooksData.md
 docs/OrderbooksDataAsks.md
@@ -26,6 +30,10 @@ go.mod
 go.sum
 model_account_margin.go
 model_account_margin_data.go
+model_assets.go
+model_assets_data.go
+model_inline_object.go
+model_inline_response_200.go
 model_orderbooks.go
 model_orderbooks_data.go
 model_orderbooks_data_asks.go

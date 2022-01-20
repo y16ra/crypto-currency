@@ -118,7 +118,80 @@ paths:
       summary: Get account margin
       tags:
       - private
+  /private/v1/account/assets:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Assets'
+          description: OK
+      security:
+      - ApiKey: []
+        ApiTimestamp: []
+        ApiSign: []
+      summary: Get account assets
+      tags:
+      - private
+  /private/v1/order:
+    post:
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object'
+        content:
+          application/json:
+            schema:
+              properties:
+                symbol:
+                  $ref: '#/components/schemas/Symbols'
+                side:
+                  enum:
+                  - BUY
+                  - SELL
+                  type: string
+                executionType:
+                  enum:
+                  - MARKET
+                  - LIMIT
+                  - STOP
+                  type: string
+                timeInForce:
+                  enum:
+                  - FAK
+                  - FOK
+                  type: string
+                price:
+                  type: string
+                losscutPrice:
+                  type: string
+                size:
+                  type: string
+                cancelBefore:
+                  type: boolean
+              type: object
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+          description: OK
+      security:
+      - ApiKey: []
+        ApiTimestamp: []
+        ApiSign: []
+      summary: Order
+      tags:
+      - private
 components:
+  requestBodies:
+    inline_object:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_object'
+      required: true
   schemas:
     StatusCode:
       description: 0 Nomal end
@@ -263,6 +336,76 @@ components:
           format: date-time
           type: string
       type: object
+    Assets:
+      example:
+        data:
+        - symbol: symbol
+          amount: amount
+          available: available
+          conversionRate: conversionRate
+        - symbol: symbol
+          amount: amount
+          available: available
+          conversionRate: conversionRate
+        responsetime: 2000-01-23T04:56:07.000+00:00
+        status: 0
+      properties:
+        status:
+          description: 0 Nomal end
+          type: integer
+        data:
+          items:
+            $ref: '#/components/schemas/Assets_data'
+          type: array
+        responsetime:
+          format: date-time
+          type: string
+      type: object
+    inline_object:
+      properties:
+        symbol:
+          $ref: '#/components/schemas/Symbols'
+        side:
+          enum:
+          - BUY
+          - SELL
+          type: string
+        executionType:
+          enum:
+          - MARKET
+          - LIMIT
+          - STOP
+          type: string
+        timeInForce:
+          enum:
+          - FAK
+          - FOK
+          type: string
+        price:
+          type: string
+        losscutPrice:
+          type: string
+        size:
+          type: string
+        cancelBefore:
+          type: boolean
+      type: object
+    inline_response_200:
+      example:
+        data: data
+        responsetime: 2000-01-23T04:56:07.000+00:00
+        status: 0
+      properties:
+        status:
+          description: 0 Nomal end
+          type: integer
+        data:
+          description: orderid
+          type: string
+        responsetime:
+          format: date-time
+          type: string
+      type: object
     Tickers_data:
       example:
         volume: 7.061401241503109
@@ -398,6 +541,22 @@ components:
           items:
             $ref: '#/components/schemas/Trades_data_list'
           type: array
+      type: object
+    Assets_data:
+      example:
+        symbol: symbol
+        amount: amount
+        available: available
+        conversionRate: conversionRate
+      properties:
+        amount:
+          type: string
+        available:
+          type: string
+        conversionRate:
+          type: string
+        symbol:
+          $ref: '#/components/schemas/Symbols'
       type: object
   securitySchemes:
     ApiKey:

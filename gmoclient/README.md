@@ -79,7 +79,9 @@ All URIs are relative to *https://api.coin.z.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*PrivateApi* | [**PrivateV1AccountAssetsGet**](docs/PrivateApi.md#privatev1accountassetsget) | **Get** /private/v1/account/assets | Get account assets
 *PrivateApi* | [**PrivateV1AccountMarginGet**](docs/PrivateApi.md#privatev1accountmarginget) | **Get** /private/v1/account/margin | Get account margin
+*PrivateApi* | [**PrivateV1OrderPost**](docs/PrivateApi.md#privatev1orderpost) | **Post** /private/v1/order | Order
 *PublicApi* | [**PublicV1OrderbooksGet**](docs/PublicApi.md#publicv1orderbooksget) | **Get** /public/v1/orderbooks | Get orderbooks
 *PublicApi* | [**PublicV1StatusGet**](docs/PublicApi.md#publicv1statusget) | **Get** /public/v1/status | Get an exchange status
 *PublicApi* | [**PublicV1TickerGet**](docs/PublicApi.md#publicv1tickerget) | **Get** /public/v1/ticker | Get latest rate
@@ -90,6 +92,10 @@ Class | Method | HTTP request | Description
 
  - [AccountMargin](docs/AccountMargin.md)
  - [AccountMarginData](docs/AccountMarginData.md)
+ - [Assets](docs/Assets.md)
+ - [AssetsData](docs/AssetsData.md)
+ - [InlineObject](docs/InlineObject.md)
+ - [InlineResponse200](docs/InlineResponse200.md)
  - [Orderbooks](docs/Orderbooks.md)
  - [OrderbooksData](docs/OrderbooksData.md)
  - [OrderbooksDataAsks](docs/OrderbooksDataAsks.md)
