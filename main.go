@@ -3,12 +3,12 @@ package main
 import (
 	"fmt"
 
-	"github.com/y16ra/crypto-currency/gmo"
+	"github.com/y16ra/gmo-coin-go-sdk/client"
 )
 
 func main() {
 	// GMO Coin client
-	gmoClient := new(gmo.GmoCoin).NewClient()
+	gmoClient := new(client.GmoCoin).NewClient()
 
 	// ticker := gmoClient.Ticker.All()
 	// fmt.Println(ticker)
