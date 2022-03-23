@@ -23,3 +23,8 @@ jobs:
 
     - name: Test
       run: go test -v ./...
+
+    - name: reviewdog
+      uses: reviewdog/action-setup@v1
+      with:
+        reviewdog_version: latest
